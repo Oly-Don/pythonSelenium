@@ -29,18 +29,3 @@ Baidu
     ${radomeStr}    Generate Random String    20
     ${oly}    Evaluate    89/23
     log    ${oly}
-    Open Browser    ${host}    browser=firefox
-    Press Key    id=kw    ${radomeStr}
-    Click Button    id=su
-    Sleep    3 seconds
-
-RemoteFirefox
-    [Tags]    test
-    ${localProfile}    Set Variable    C:\Users\Administrator.USER-20180121IN\AppData\Roaming\Mozilla\Firefox\Profiles
-    log    begin test,login:${host}
-    Open Browser    ${host}    browser=firefox    alias=183firefox    remote_url=${gridUrl}    \    ff_profile_dir=no
-    Input Text    id=kw    Robot Framework
-    Click Button    id=su
-    Capture Page Screenshot
-    Sleep    5
-    Close All Browsers
