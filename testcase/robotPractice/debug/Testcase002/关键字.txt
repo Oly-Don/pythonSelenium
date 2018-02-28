@@ -1,0 +1,34 @@
+*** Settings ***
+Library           Selenium2Library
+Library           String
+Library           DatabaseLibrary
+Library           RequestsLibrary
+Library           Collections
+
+*** Test Cases ***
+用户关键字
+    [Tags]    p
+    ${sum}    getSum    22    100    33    66
+    Log Many    最终结果是:${sum}
+
+关键字超时
+    [Tags]    p
+    timeOut    23
+
+*** Keywords ***
+getSum
+    [Arguments]    ${arg1}    ${arg2}=100    @{arg3}
+    [Timeout]    50 minutes
+    Log Many    ${arg1}
+    Log Many    ${arg2}
+    Log Many    ${arg3}
+    ${SUM}    Evaluate    ${arg1}+${arg2}
+    : FOR    ${num}    IN    @{arg3}
+    \    Log    运算:${SUM}+${num}=
+    \    ${SUM}    Evaluate    ${SUM}+${num}
+    [Return]    ${SUM}
+
+timeOut
+    [Arguments]    ${arg1}=10
+    [Timeout]    5 second
+    sleep    ${arg1}

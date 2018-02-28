@@ -1,0 +1,11 @@
+*** Test Cases ***
+FOR循环遍历
+    [Tags]    p
+    ${SUM}    Set Variable
+    @{arg3}    Create List    100    300    200
+    : FOR    ${num}    IN    @{arg3}
+    \    Log    运算:${SUM}+${num}=
+    \    ${SUM}    Evaluate    ${SUM}+${num}
+    : FOR    ${num}    IN RANGE    0    5    1
+    \    Log    运算:${SUM}+${num}=
+    \    ${SUM}    Evaluate    ${SUM}+${num}
