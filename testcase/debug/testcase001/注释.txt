@@ -1,0 +1,5 @@
+*** Test Cases ***
+注释
+    [Tags]    p
+    Comment    for语句写法注意事项:ELSE IF前必须加...
+    #yes这也是注释部分

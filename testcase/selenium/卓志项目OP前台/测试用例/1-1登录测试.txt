@@ -1,0 +1,48 @@
+*** Settings ***
+Library         Selenium2Library
+Library         String
+Library         DatabaseLibrary
+Library         RequestsLibrary
+Library         Collections
+
+*** Variables ***
+${url}          http://192.168.0.135:8080/customs/
+
+*** Test Cases ***
+登录主页
+  [Tags]  d
+  [Timeout]  1 minute
+  打开流浏览器
+  输入用户名
+  输入密码
+  验证码登录  输入验证码
+  验证登录结果
+  [Teardown]  关闭浏览器
+
+*** Keywords ***
+打开流浏览器
+  [Arguments]  ${arg1}=ff
+  Open Browser  ${url}  ff
+
+输入用户名
+  [Arguments]  ${arg1}=admin
+  Input Text  id=username  ${arg1}
+
+输入密码
+  [Arguments]  ${arg1}=123456ab
+  Input Text  id=password  ${arg1}
+
+验证码登录
+  [Arguments]  ${arg1}
+  #暂时手工睡眠5秒,手工输入
+  Comment  后续通过百度oci接口识别验证码
+  Sleep  5
+  Input Text  id=identifying  ${arg1}
+  Click Button  Xpath=//input[@class='login_btn_login']
+
+验证登录结果
+  Page Should Contain Element  id=_logout_  失败原因:没有找到标记:_logout_
+  Capture Page Screenshot  验证登录结果.png
+
+关闭浏览器
+  Close All Browsers
